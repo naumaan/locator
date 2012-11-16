@@ -1,0 +1,620 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>Store Finder</title>
+<style type="text/css">
+
+#main {
+	background: #fff;
+	margin: 0 20px 20px 20px
+}
+#main h1 {
+	padding: 0;
+	margin-top: 20px
+}
+#header {
+	background-color: #eee;
+	font-weight: normal;
+	margin: 0;
+	padding: 10px;
+	font-size: small
+}
+td {
+	width: 350px
+}
+.ui-widget {
+	top: 0px;
+	position: absolute;
+	background: rgb(64,150,238);
+	background: -moz-linear-gradient(top, rgba(64,150,238,1) 0%, rgba(64,150,238,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(64,150,238,1)), color-stop(100%, rgba(64,150,238,1)));
+	background: -webkit-linear-gradient(top, rgba(64,150,238,1) 0%, rgba(64,150,238,1) 100%);
+	background: -o-linear-gradient(top, rgba(64,150,238,1) 0%, rgba(64,150,238,1) 100%);
+	background: -ms-linear-gradient(top, rgba(64,150,238,1) 0%, rgba(64,150,238,1) 100%);
+	background: linear-gradient(to bottom, rgba(64,150,238,1) 0%, rgba(64,150,238,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4096ee', endColorstr='#4096ee', GradientType=0 );
+
+
+
+-webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+	        box-shadow: 0 8px 6px -6px black;
+
+}
+#selectable .ui-selecting {
+	background: #FECA40;
+}
+#selectable .ui-selected {
+	background: #F39814;
+	color: white;
+}
+#selectable {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: #B3B3B3 5px 5px 5px;
+	-moz-box-shadow: #B3B3B3 5px 5px 5px;
+	box-shadow: #B3B3B3 5px 5px 5px;
+	z-index: 1;
+	width: auto;
+}
+#selectable li {
+	margin: 3px;
+	padding: 0.4em;
+}
+</style>
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script> -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script type="text/javascript" src="http://malsup.github.com/chili-1.7.pack.js"></script>
+<script type="text/javascript" src="http://malsup.github.com/jquery.cycle.all.js"></script>
+
+
+<script>
+
+function getData(location,store)
+{
+var temp = new Array();
+var data = new Array();
+
+data[0] = ["Planet Sports","SHOP NO:112/115,1st FLOOR GARUDA MALL,MAGARATH ROAD.","Bangaluru"];
+data[1] = ["Pantaloons","Mantri Sqare,# 1, Sampige Road, Mallashwaram","Bangaluru"];
+data[2] = ["Central","# 47/48, Residency Road.","Bangaluru"];
+data[3] = ["Central","J P Nagar, Plot no 45/1,45/2,45th cross, J P Nagar 2nd Phase","Bangaluru"];
+data[4] = ["Planet Sports","LG27,City Centre Mall,K S Rao Raod, Hampankatta,Mangalore-56003,","Mangalore"];
+data[5] = ["Reliance Footprint","NEAR AUTO MATRIX SHOWROOM,#89 A  BEJAI CHURCH ROAD.","Mangalore"];
+data[6] = ["Planet Sports","OPP : - KSRTC BUS STAND,1st FLOOR , BHARAT MALL,1554/7, 1555/2A, 2B - 64,BEJAI, KAVOOR ROAD.","Mangalore"];
+data[7] = ["Reliance Footprint","Ff-14 B city Centre Mall,K S Rao Road Hampankatta,Mangalore.","Mangalore"];
+data[8] = ["Pantaloons","Phoenix United Mall, Near Maha nagar colony, chitto bihar mann naglan, pilibhit bypass.","Bareilly"];
+data[9] = ["Metro","UNIT NO.15A,LEVEL-III,FRIST FLOOR,SHIPRA MALL,INDIRAPURAM,GAZIABAD-201 012","Ghaziabad"];
+data[10] = ["Reliance Footprint","FIRST FLOOR 115 OPULENT MALL, G T ROAD Ghaziabad.","Ghaziabad"];
+data[11] = ["Reliance Footprint","FF F1-D Pacific Mall Plot 1,Site 4 Sahibabad Industrial Area,Opp- Anand Vihar Metro Rly Stn.","Ghaziabad"];
+data[12] = ["Pantaloons","Rave 3 multiplex.","Kanpur"];
+data[13] = ["Reliance Footprint","A Ring Road Vibhuti Khand Gomti Nagar,Lucknow.","Lucknow"];
+data[14] = ["Planet Sports","Shop No.- 06&07 ground floor,Sahara ganj Mall, shahjanaf road.","Lucknow"];
+data[15] = ["Reliance Footprint","SHOP AT LGF , Site No. 47A/2, SARDAR PATEL MARG, CIVIL STATION, CIVIL LINES,  Allahabad, UP- 211002","Allahabad"];
+data[16] = ["Pantaloons","Vinayak city Centre Mall 48/24 Sardar Patel Marg Civil lines.","Allahabad"];
+data[17] = ["Reliance Footprint","LGF & UGF ,Prop no 2,khet no 260,Sanwal Plaza Naintial Road,Bhotia Padao,Durga city center,Haldwani - 263139","Haldwani - I"];
+data[18] = ["Planet Sports","Keting  Road,Police Bazar.","Shillong"];
+data[19] = ["Metro","E-21, New Delhi SOUTH EXTENTION, PART-II, MAIN MARKET.","New Delhi"];
+data[20] = ["Planet Sports","SS-228,Ambience mall,Second floor, vasant kunj, Nelson mandela marg.","New Delhi"];
+data[21] = ["Reliance Footprint","BF,Dwaraka City Centre Sector-10,Dwarka  Delhi - 110075,","New Delhi"];
+data[22] = ["Reliance Footprint","Shop 101 FF,Moments Mall #67 Patel Road Kirti Nagar.","New Delhi"];
+data[23] = ["Reliance Footprint","No 1 01/02 BDA HOUSING SCHEME ,NEAR OBEROI JUNCTION JAYDEV VIHAR.","Bhubneshwar"];
+data[24] = ["Pantaloons","Suruchi Plaza 29/35,AB,Saheednagar Janpath.","Bhubneshwar"];
+data[25] = ["Reliance Footprint","Model Town Road  Lajpat Nagar.","Jalandhar"];
+data[26] = ["Reliance Footprint","2nd FLOOR  FLAMEZ MALL ,SATPAUL MITTAL ROAD.","Ludhiana"];
+data[27] = ["Reliance Footprint","THE CELEBRATION MALL  AGF S No 05,GAGAN CINEMA COMPLEX  BATALA ROAD.","Amritsar"];
+data[28] = ["Planet Sports","AF-2,1st FLOOR,T.I.Mall,M.G.ROAD.","Indore"];
+data[29] = ["Central","Planet Sports,Indore Central,   Naman Mall, 170 RNT Marg Opp Ravindra Natya Grah.","Indore"];
+data[30] = ["Planet Sports","Shop no 36,37,38, 1st Floor DB.City Mall, M.P.NAGAR.","Bhopal"];
+data[31] = ["Metro","SHOP NO.S-120, 1ST FLOOR, EXPRESS AVENUE, CLUB HOUSE ROAD, ANNA SALAI","Chennai"];
+data[32] = ["Metro","117/3,MAHESHWARI NAGAR,100 FEET ROAD,OPP.HP PETROL PUMP,VELACHERY.","Chennai"];
+data[33] = ["Metro","SHOP NO. 120, FIRST FLOOR, AMPA SKYWALK, NELSON  MANIKRAM ROAD, AMJIKARAI.","Chennai"];
+data[34] = ["Metro","GR. FLOOR, NALLY VANAJAS ENCLAVE, DOOR NO.99,  PONDY BAZAR, T.NAGAR.","Chennai"];
+data[35] = ["Metro","JANKI 20, SARDAR PATEL ROAD, ADYAR, Chennai - 600 020.","Chennai"];
+data[36] = ["Metro","Chennai CITI CENTRE, SHOP NO.2, GROUND FLOOR, Dr. RADHAKRISHNAN RD, MYLAPORE, Chennai - 600 004.","Chennai"];
+data[37] = ["Metro","FATIMA NAGAR ,PLOT NO 4676 , AA/11, 2nd AVENUE, ANNA NAGAR.","Chennai"];
+data[38] = ["Metro","135, NORTH USMAN ROAD,  T. NAGAR.","Chennai"];
+data[39] = ["Metro","BLOCK NO.AI-31, OLD NO.103-A, SHANTI COLONY,  ANNA NAGER (WEST).","Chennai"];
+data[40] = ["Planet Sports","PHOENIX MARKET CITY, NO.142,VELACHERY,PHOENIX MARKET CITY.","Chennai"];
+data[41] = ["Reliance Footprint","SHOP # 9,KILPAUK(OPP: BREEZE HOTEL.","Chennai"];
+data[42] = ["Reliance Footprint","G2 Ground Floor,Spencer Plaza,768/769 Anna Salai","Chennai"];
+data[43] = ["Planet Sports","No,256,257,258 2nd floor 49-50L express avenue royapettah.","Chennai"];
+data[44] = ["Planet Sports","Shop No.F-23-24, Ist Floor,Brooke Fields Mall,Krishna Swami Road.","Coimbatore"];
+data[45] = ["Reliance Footprint","BROOKEFEILD PLAZA F9,KRISHNASWAMY ROAD.","Coimbatore"];
+data[46] = ["Pantaloons","Pantaloon Retail India Ltd,,2nd Floor, Pantaloons,Brook Field Mall.","Coimbatore"];
+data[47] = ["Reliance Footprint","Edapally Mall,NH 47  Bye Pass.","Cochin"];
+data[48] = ["Metro","UNIT NO. UG - 12 & 13, KORAM MALL, MANGAL PANDEY ROAD,  Thane (W).","Thane"];
+data[49] = ["Reliance Footprint","Off Eastern Express Highway,Shop No. G45,Near Cadbury Compound.","Thane"];
+data[50] = ["Central","Thane-R-MALL, A DIVISION OF PANTALOON RETAIL (I) LT, R MALL,UNITED MOTORS LTD,Thane(WEST), GHODBUNDER ROAD,OPP.GODREJ.LAWKIM.","Thane"];
+data[51] = ["Lifestyle" ,"The Great India Place - Unitech Mall,Noida Amusement Park.","Noida"];
+data[52] = ["Metro","THE GREAT INDIA PALACE, SHOP.NO.03, SECTOR 38/A, NEW OKHLA IND. AREA, Noida , GAUTAM BUDDHA NGR.","Noida"];
+data[53] = ["Planet Sports","GTP SHOP (SITE-2015), Shop No. - 3, Gaurav Tower, Malivya Nagar.","Jaipur"];
+data[54] = ["Reliance Footprint","PLOT NO. 12-13  RATHORE NAGAR ,QUEENS ROAD  VAISHALI NAGAR.","Jaipur"];
+data[55] = ["Central","MANI SQUARE MALL, SALAPURIA,PLOT NO 1&2,GOVIND MARG,RAJA PARK YOJANA.","Jaipur"];
+data[56] = ["Reliance Footprint","PENANG TOWER, MG ROAD, PATTOM, TRIVANDRUM , KERALA 695004 ","Trivndrum"];
+data[57] = ["Reliance Footprint","3rd floor  ,Gopalan Signature tower  6 Old Madras Road,C V raman Nagar.","Bangaluru"];
+data[58] = ["Reliance Footprint","#218  4TH MAIN  KAMMANAHALLI MAIN ROAD ,OPP. HDFC BANK.","Bangaluru"];
+data[59] = ["Reliance Footprint","#2222  11TH MAIN  4TH BLOCK,JAYANAGAR","Bangaluru"];
+data[60] = ["Reliance Footprint",",G5F5,Bangaluru.","Bangaluru"];
+data[61] = ["Reliance Footprint","OPP. LAKE SHORE TOWERS ,RAJBHAVAN ROAD  SOMAJIGUDA ,Hyderabad.","Hyderabad"];
+data[62] = ["Reliance Footprint","GROUND FLOOR G-17 ANSAL PLAZA 1/C ,KNOWLEDGE PARK-1 INSTITUTIONAL AREA ,NEAR PARI CHOCK","Noida"];
+data[63] = ["Pantaloons","GREAT INDIA PLACE SEC-38-A.","Noida"];
+data[64] = ["Central","Poonam mall, VIP road, Khasra no 91, north ambazari road,","Nagpur"];
+data[65] = ["Planet Sports","Eternity Mall, Shop No.S2 & S3, 2nd Floor,Variety Square, Sitabuldi.","Nagpur"];
+data[66] = ["Reliance Footprint","LOTUS RACHNA G 1,GOREPETH LAYOUT  WHC ROAD  DHARAMPETH.","Nagpur"];
+data[67] = ["Pantaloons","EMPRESS MALL, NEAR RLY STATION.","Nagpur"];
+data[68] = ["Pantaloons","GUPTA TOWER  OPP. SCIENCE COLLEGE GROUND TEMPEL ROAD CIVIL LINE.","Nagpur"];
+data[69] = ["Central","TRIMBAK NAKA,PLOT NO.152.","Nasik"];
+data[70] = ["Reliance Footprint","NIGHAT PLAZA,NO 588, UPPER Ground Floor,SAMAD ROAD, CENTER POINT,Aligarh - 202001","Aligarh"];
+data[71] = ["Metro","FORUM, SHOP NO 109,10/3, LALA LAJPAT RAI SARANI MARG.","Kolkata"];
+data[72] = ["Metro","M/S. J.BOSECK & CO. PVT. LTD.  OBEROI GRAND ARCADE, 15/7, J.L.N. RD.","Kolkata"];
+data[73] = ["Planet Sports","Southcity Mall , First floor , shop No 103 , 375 , Prince anwar Shah Road .","Kolkata"];
+data[74] = ["Planet Sports","Manisquar Mall , Ground floor , shop No 1& 2 , 164/1 , Manicktala Main Road  ,Em bypass.","Kolkata"];
+data[75] = ["Pantaloons","Southcity Mall , 375 Prince Anwar Shah Road.","Kolkata"];
+data[76] = ["Pantaloons","orchid point,33/1A,U.C.Banerjee Road.","Kolkata"];
+data[77] = ["Pantaloons","22 CAMAC ST.","Kolkata"];
+data[78] = ["Planet Sports","Cosmos Mall, 2 nd mile, Sevoke Road.","Siliguri"];
+data[79] = ["Planet Sports","Rangmahal Building GS Road Ulubari .","Guwahati"];
+data[80] = ["Pantaloons","D T Tower ,Near Down Town Hospital,G S Road,Dispur.","Guwahati"];
+data[81] = ["Central"," Raipur Central, City Mall,Devendra Nagar,Oppt.PFOffice,Cloth Market Pandri.","Raipur"];
+data[82] = ["Reliance Footprint","CITY MALL F-19 S-15 16,INDRAPRASTHA INDUSTRIAL AREA ,JHALAWAR ROAD.","Kota"];
+data[83] = ["Planet Sports","Shop No.F-09, Ist Floor,Caculo Mall,Caculo Enclave,  St.Inez, Panji.","Panaji"];
+data[84] = ["Central","Iris Mall, Opp Valentine Multiplex, Surat Dumas Road, Gaurav Path.","Surat"];
+data[85] = ["Reliance Footprint","G4,Racecourse Road,Opp. Baroda Central Mall.","Vadodara"];
+data[86] = ["Planet Sports","Centre Square Mall,Opp. Vadodara Central,Nr. Genda Circle.","Vadodara"];
+data[87] = ["Central","opp sarabhai chemical ltd., near genda circal.","Vadodara"];
+data[88] = ["Planet Sports","FIRST FLOOR  SHOP NO. F-31 CTS NO.169, LBS MARG GHATKOPAR WEST","Mumbai"];
+data[89] = ["Metro","INFINITY MALL ,UNIT NO.114, 1ST FLR,ANDHERI LINK ROAD,ANDHERI (W).","Mumbai"];
+data[90] = ["Metro","SAGAR AVENUE, OPP.SHOPPER'S STOP, ANDHERI(W).","Mumbai"];
+data[91] = ["Planet Sports","INFINITY MALL, NEXT TO INORBIT MALL, MALAD LINK ROAD, MALAD (WEST)","Mumbai"];
+data[92] = ["Planet Sports","PHOENIX MARKET CITY MALL, KAVERI ESTATE, L B S ROAD, KURLA (WEST).","Mumbai"];
+data[93] = ["Planet Sports","SECOND FLOOR,SHOP NO. 29 & 30, CTS NO.169, LBS MARG,GHATKOPAR WEST.","Mumbai"];
+data[94] = ["Planet Sports","FIRST FLOOR, INROBIT MALL, MALAD LINK ROAD,MALAD WEST.","Mumbai"];
+data[95] = ["Metro","113, S.V.RD, OPP. MALAD  SHOPPING CENTER, MALAD (WEST).","Mumbai"];
+data[96] = ["Metro","534, LINKING ROAD,  NEXT TO MCDONALD ,BANDRA (WEST).","Mumbai"];
+data[97] = ["Metro","3/5, KHODADAD CIRCLE,  DADAR T.T.","Mumbai"];
+data[98] = ["Metro","MATRU CHHAYA, OPP NOVELTY CINEMA GRANT ROAD.","Mumbai"];
+data[99] = ["Metro","9, Metro HOUSE,S.B.S ROAD,GROUND FLOOR,  COLABA CAUSEWAY,  NEAR REGAL CINNEMA","Mumbai"];
+data[100] = ["Reliance Footprint","Phoenix Market City Unit G48 GF,LBS Marg Kurla West - 400070 Mumbai","Mumbai"];
+data[101] = ["Reliance Footprint","Reliance Footprint , GF-01-05 FF05-12 Sarvoday Mall, Opp New APMC Market Sheel Road","Mumbai"];
+data[102] = ["Reliance Footprint","SF 204 Second Floor,Infinity Mall Malad Link Road.","Mumbai"];
+data[103] = ["Reliance Footprint","G15 GF Growel Mall,Akurli Road Behind Big Bazaar Kandivali (E).","Mumbai"];
+data[104] = ["Pantaloons","Mumbai-LP-PHOENIX, A DIVISION OF PANTALOON RETAIL (I) LTD, PHOENIX RETAIL BUSINESS CENTRE, PHEONIX HIGH STREET,462, SENAPATI BAPAT.","Mumbai"];
+data[105] = ["Central","OBEROI MALL, INT. BUISNESS PARK, OBEROI, GARDEN CITY, OFF-W.E.HIGHWAY,GOREGAON(E).","Mumbai"];
+data[106] = ["Central","CROSS ROAD,PT. M.M.MALAVIYA MARG, TARDEO.","Mumbai"];
+data[107] = ["Planet Sports","SECOND FLOOR, INORBIT MALL VASHI.","Navi Mumbai"];
+data[108] = ["Metro","UNIT NO. F/5, 1ST FLOOR,INORBIT MALL, SECTOR NO. 30A, VASHI.","Navi Mumbai"];
+data[109] = ["Central","RAGHULEELA MALL,OPP. VASHI STATION, PLOT NO.34,35 & 38,SECTOR 38-A,IIP,VASHI.","Navi Mumbai"];
+data[110] = ["Reliance Footprint","CRYSTAL MALL  SHIP # 101/A  Ist FlOOR  S.No 108,PLOT NO 33  KALAVAD ROAD.","Rajkot"];
+data[111] = ["Planet Sports"," Second floor Shop No.4-5-6 Gulmohar Park Mall, Setelight Road","Ahmedabad"];
+data[112] = ["Metro","SHOP NO.16,1ST FLOOR, ALPHA ONE MALL,VASTRAPUR LAKE.","Ahmedabad"];
+data[113] = ["Metro","UNIT NO 140-141, ISCON MEGA MALL,NEAR RAJPATH CLUB,SARKHEJ GANDHINAGAR HIGHWAY.","Ahmedabad"];
+data[114] = ["Metro","SHOP NO.3, RAIN DROPS,  C.G.ROAD, OPP. CARGO MOTORS.","Ahmedabad"];
+data[115] = ["Metro","1/2, NEAR ELECTRICITY HOUSE,  RELIEF RD, .","Ahmedabad"];
+data[116] = ["Metro","SHOP NO 17 - 20, ANIKET  C.G.ROAD, NEAR MUNCIPAL MARKET,NAVRANGPURA.","Ahmedabad"];
+data[117] = ["Reliance Footprint","UGFSHOP 1,RELIANCE AREA ISKCON MEGA MALL,NEAR RAJPATH CLUB SG ROAD.","Ahmedabad"];
+data[118] = ["Central","Kolonnade Center, OppSaffron tower, Ambavadi, C.g road.","Ahmedabad"];
+data[119] = ["Pantaloons"," Abhijeet -III Opp: mayor's bunglow's Near Law garden Gujarat Landline","Ahmedabad"];
+data[120] = ["Metro","SHOP NO 1B, 2ND FLR MetroPOLITION MALL, M G ROAD, Gurgaon.","Gurgaon"];
+data[121] = ["Reliance Footprint","1st Floor AMBI MALL,AMBIENCE ISLAND NH8.","Gurgaon"];
+data[122] = ["Central"," NEAR PRIVATE HOSPITAL,M.G.ROAD, SECTOR- 25","Gurgaon"];
+data[123] = ["Pantaloons","DABA GARDEN-TSR COMPLEX,TSR COMPLEX, DABA GARDEN,ALLIPURAM WARD.","Visakhapatnam"];
+data[124] = ["Reliance Footprint","D.No: 48-14-111,Opp. Karnataka Bank Ltd. Visakhapatnam,Ramatalkies road.","Visakhapatnam"];
+data[125] = ["Reliance Footprint","MALL D.No. 52-1-35 36 38 NEW RESAPUVANIP,MADDILAPALEM VISHAKAPATNAM 530 013,VISHAKAPATNAM  Andhra Pradesh - 530013,","Visakhapatnam"];
+data[126] = ["Central","Suhani Mall,Suryabagh, Near Super Bazar.","Visakhapatnam"];
+data[127] = ["Metro","SHOP NO. 1 & 2 PART, MUNICIPAL NO.6-3-379 TO 381,  PANJAGUTTA, BASHARAT PLAZA.","Hyderabad"];
+data[128] = ["Metro","UNIT NO.F-15, FIRST FLOOR, INORBIT MALL, MINDSPACE.","Hyderabad"];
+data[129] = ["Planet Sports","Shop no -13 &14 ,First floor ,Gvk one mall ,banjara hills","Hyderabad"];
+data[130] = ["Planet Sports","S-7, 2nd Floor, Inorbit malls, Madhapur.","Hyderabad"];
+data[131] = ["Reliance Footprint","GF, S1, NSL CENTRUM,SURVEY NO  1043 & 1048,KBHB PHASE 1 & 2,  KUKATPALLY,Hyderabad, AP 500072.","Hyderabad"];
+data[132] = ["Reliance Footprint","Main Road,Municipal No.3-6-434,Himayatnagar.","Hyderabad"];
+data[133] = ["Central","G.S centre point Punjagutta X road,Muncipal no 6-3--673/1,674 & 674/1.","Hyderabad"];
+data[134] = ["Reliance Footprint","SAMDARIYA MALL UGF S NO  2,CIVIC CENTRE .","Jabalpur"];
+data[135] = ["Metro","PREMIER PLAZA,SHOP NO.12,13,14 &15 ,Mumbai Pune HIGHWAY,CHINCHWAD.","Pune"];
+data[136] = ["Metro","13, M.G.ROAD, CAMP, (HSHAN HIRA BESMENT) Pune.","Pune"];
+data[137] = ["Planet Sports","FIRST FLOOR, PHONEIX MARKET CITY MALL, VIMAN NAGAR, NAGAR ROAD.","Pune"];
+data[138] = ["Planet Sports","FIRST FLOOR, EAST  BLOCK,AMANORA MALL.","Pune"];
+data[139] = ["Planet Sports","SHOP NO.D, LOWER GROUND FLOOR, SGS MALL , MOLEDINA ROAD, CAMP.","Pune"];
+data[140] = ["Reliance Footprint","PLOT 6  KATARIA CHAMBERS  ITI ROAD ,SANEWADI  AUNDH.","Pune"];
+data[141] = ["Reliance Footprint","PHOENIX MARKET CITY F1  FIRST FLOOR   S. NO.207 ,BEHIND BAKER GAUGES (I) PVT. LTD NEXT TO,TYCO ELECTRONICS  VIMAN NAGAR ROAD.","Pune"];
+data[142] = ["Pantaloons","ICC TOWER, S B ROAD, SHIVAJI NAGAR.","Pune"];
+data[143] = ["Central","MSM PARANJAPE MALL , OFF KARVE ROAD  NEAR MES COLLEGE, ","Pune"];
+data[144] = ["Central","BUND GARDEN.","Pune"];
+data[145] = ["Central"," ASSENT MALL, UNIVERSITY ROAD, SHIVAJI NAGAR.","Pune"];
+data[146] = ["Central","WEST BLOCK, AMANORA MALL,NEAR MAGRPATTA CITY .","Pune"];
+data[147] = ["Planet Sports","Shop No F31 & F32  , Prozone mall, MIDC Chikalthana.","Aurangabad"];
+data[148] = ["Pantaloons","EASTERN MALL, CIRCULAR ROAD, NEAR DANGRATOLI CHOWK.","Ranchi"];
+data[149] = ["Reliance Footprint","Plot no 670, M G ROAD , OPP. GURUDHWARA.","Ranchi"];
+data[150] = ["Lifestyle","#41/2, 42/2, OBLAPURA GRAM PANCHYAT ANUGONDANHALLI HOBLI, DEVANGUNDI MAIN ROAD, HOSAKOTE TALUK Bangaluru KARNATAKA 560067 ","Bangaluru"];
+data[151] = ["Metro","UNIT NO. UG-18, MANTRI MALL SAMPIJE ROAD,  MALLESHWARAM.","Bangaluru"];
+data[152] = ["Metro","THE FORUM, SHOP NO. G-015, GR FLR, ADUGODI, KUSUR MAIN RD.","Bangaluru"];
+data[153] = ["Metro","38, COMMERCIAL STREET, Bangaluru - 560 001.","Bangaluru"];
+data[154] = ["Metro","317/318, KAMRAJ ROAD, COMMERCIAL STREET JN.","Bangaluru"];
+data[155] = ["Metro","43, BRIGADE ROAD, CIVIL STATION,Bangaluru.","Bangaluru"];
+data[156] = ["Reliance Footprint","Site No. 50  Zatakia Center,100 FT Road. ","Bangaluru"];
+data[157] = ["Reliance Footprint","Ft. Road 7th Block  Site No.6/B,BBMP PID No.87-7-6/B-80.","Bangaluru"];
+data[158] = ["Planet Sports","PHEONIX MARKET CITY, OPP BBMP OFFICE, WHITEFIELD ROAD.","Bangaluru"];
+data[159] = ["Reliance Footprint","MARKET CITY LG444546,WHITEFEILD ROAD MAHADEVPURA,Bangaluru  Karnataka - 560066,","Bangaluru"];
+data[160] = ["Reliance Footprint","LGF-07 Mantri Mall,#1 Sampige Road Mallesharm.","Bangaluru"];
+data[161] = ["Planet Sports","Shop No: FF 23-25, Mantri Square, #1, Sampige Road, Mallaswaram","Bangaluru"];
+
+
+var j=0;
+var i;
+
+if(store == "ALL")
+{
+  for(i=0;i<162;i++)
+  {
+	  if(data[i][2] == location)
+	  {
+	  temp[j] = data[i];	  
+	  j++;
+	  }
+  }	
+}
+else
+{
+  for(i=0;i<162;i++)
+  {	
+	  if(data[i][0] == store && data[i][2] == location)
+	  {
+		  temp[j] = data[i];
+		  j++;
+	  }
+  }
+}
+return temp;
+}
+    $(function() {
+        var availableTags = [
+		"Bangaluru",
+            "Mangalore",
+            "Bareilly",
+            "Ghaziabad",
+            "Kanpur",
+            "Lucknow",
+            "Allahabad",
+            "Haldwani - I",
+            "Shillong",
+            "New Delhi",
+            "Bhubneshwar",
+            "Jalandhar",
+            "Ludhiana",
+            "Amritsar",
+            "Indore",
+            "Bhopal",
+            "Chennai",
+            "Coimbatore",
+            "Cochin",
+            "Thane",
+            "Noida",
+            "Jaipur",
+		"Trivndrum",
+		"Hyderabad",
+		"Nagpur",
+		"Nasik",
+		"Aligarh",
+		"Kolkata",
+		"Siliguru",
+		"Guwahati",
+		"Raipur",
+		"Kota",
+		"Panaji",
+		"Surat",
+		"Vadodara",
+		 "Mumbai",
+		 "Navi Mumbai",
+		"Ahmedabad",
+		"Gurgaon",
+		"Visakhapatnum",
+		"Jabalpur",
+		"Pune",
+		"Ranchi",
+		"Aurangabad",
+		"Rajkot"
+        ];
+        $( "#tags" ).autocomplete({
+            source: availableTags
+        });
+    });
+	
+$(function() {
+    $('#s1').cycle({
+		fx:      'scrollRight', 
+        timeout: 0, 
+        speed:   300,
+        startingSlide: 2 
+    });
+	
+//	$("#store").change(checkCity());
+	//$("#tags").change(alert("asd"));
+//	$("#tags").change(
+
+});
+
+	function city() 
+	{
+ 	checkCity();
+	var auto=document.getElementById("tags");
+	console.log(auto.value);
+	 
+	 if(auto.value=="Bangaluru"){
+	 
+      $('#s1').cycle(0); 
+	
+		}else if(auto.value=="Mangalore")
+		{
+ 
+        $('#s1').cycle(1); 
+		}else if(auto.value=="Bareilly")
+		{
+ 
+        $('#s1').cycle(2); 
+		}else if(auto.value=="Ghaziabad")
+		{
+ 
+        $('#s1').cycle(3); 
+		}else if(auto.value=="Kanpur")
+		{
+ 
+        $('#s1').cycle(4); 
+		}else if(auto.value=="Lucknow")
+		{
+ 
+        $('#s1').cycle(5); 
+		}else if(auto.value=="Allahabad")
+		{
+ 
+        $('#s1').cycle(6); 
+		}else if(auto.value=="Haldwani - I")
+		{
+ 
+        $('#s1').cycle(7); 
+		}else if(auto.value=="Shillong")
+		{
+ 
+        $('#s1').cycle(8); 
+		}else if(auto.value=="New Delhi")
+		{
+ 
+        $('#s1').cycle(9); 
+		}else if(auto.value=="Bhubneshwar")
+		{
+ 
+        $('#s1').cycle(10); 
+		}else if(auto.value=="Jalandhar")
+		{
+ 
+        $('#s1').cycle(11); 
+		}else if(auto.value=="Ludhiana")
+		{
+ 
+        $('#s1').cycle(12); 
+		}else if(auto.value=="Amritsar")
+		{
+ 
+        $('#s1').cycle(13); 
+		}else if(auto.value=="Indore")
+		{
+ 
+        $('#s1').cycle(14); 
+		}else if(auto.value=="Bhopal")
+		{
+ 
+        $('#s1').cycle(15); 
+		}else if(auto.value=="Chennai")
+		{
+ 
+        $('#s1').cycle(16); 
+		}else if(auto.value=="Coimbatore")
+		{
+ 
+        $('#s1').cycle(17); 
+		}else if(auto.value=="Cochin")
+		{
+ 
+        $('#s1').cycle(18); 
+		}else if(auto.value=="Thane")
+		{
+ 
+        $('#s1').cycle(19); 
+		}else if(auto.value=="Noida")
+		{
+ 
+        $('#s1').cycle(20); 
+		}else if(auto.value=="Jaipur")
+		{
+ 
+        $('#s1').cycle(21); 
+		}else if(auto.value=="Trivndrum")
+		{
+ 
+        $('#s1').cycle(22); 
+		}else if(auto.value=="Hyderabad")
+		{
+ 
+        $('#s1').cycle(23); 
+		}
+		else if(auto.value=="Nagpur")
+		{
+ 
+        $('#s1').cycle(24); 
+		}else if(auto.value=="Nasik")
+		{
+ 
+        $('#s1').cycle(25); 
+		}else if(auto.value=="Aligarh")
+		{
+ 
+        $('#s1').cycle(26); 
+		}else if(auto.value=="Kolkata")
+		{
+ 
+        $('#s1').cycle(27); 
+		}else if(auto.value=="Siliguru")
+		{
+ 
+        $('#s1').cycle(28); 
+		}else if(auto.value=="Guwahati")
+		{
+ 
+        $('#s1').cycle(29); 
+		}else if(auto.value=="Raipur")
+		{
+ 
+        $('#s1').cycle(30); 
+		}else if(auto.value=="Kota")
+		{
+ 
+        $('#s1').cycle(31); 
+		}else if(auto.value=="Panaji")
+		{
+ 
+        $('#s1').cycle(32); 
+		}else if(auto.value=="Surat")
+		{
+ 
+        $('#s1').cycle(33); 
+		}else if(auto.value=="Vadodara")
+		{
+ 
+        $('#s1').cycle(34); 
+		}else if(auto.value=="Mumbai")
+		{
+ 
+        $('#s1').cycle(35); 
+		}else if(auto.value=="Navi Mumbai")
+		{
+ 
+        $('#s1').cycle(36); 
+		}else if(auto.value=="Ahmedabad")
+		{
+ 
+        $('#s1').cycle(37); 
+		}else if(auto.value=="Gurgaon")
+		{
+ 
+        $('#s1').cycle(38); 
+		}else if(auto.value=="Visakhapatnum")
+		{
+ 
+        $('#s1').cycle(39); 
+		}else if(auto.value=="Jabalpur")
+		{
+ 
+        $('#s1').cycle(40); 
+		}else if(auto.value=="Pune")
+		{
+ 
+        $('#s1').cycle(41); 
+		}else if(auto.value=="Ranchi")
+		{
+ 
+        $('#s1').cycle(42); 
+		}else if(auto.value=="Aurangabad")
+		{
+ 
+        $('#s1').cycle(43); 
+		}else if(auto.value=="Rajkot")
+		{
+ 
+        $('#s1').cycle(44); 
+		}
+   
+	//});
+}
+function checkCity()
+{
+		var auto=document.getElementById("tags");
+	var store=document.getElementById("store");
+	 
+
+temp= getData(auto.value,store.value);
+ $("#selectable").empty();
+for(var item in temp) {
+	
+	  var list = document.getElementById('selectable');
+        var li = document.createElement('li');
+		li.className="ui-widget-content";
+		li.style="background-position:right;background:url(skietchers1.png)";
+		if(temp[item][0]=='Planet Sports'){
+        li.innerHTML = "<img src= 'Planet.png' width='158' height='45'><br><br>"+temp[item][1]+"<hr>";
+		}else if(temp[item][0]=='Metro'){
+        li.innerHTML = "<img src='Metro.png' width='86' height='45'><br><br>"+temp[item][1]+"<hr>";
+		}else if(temp[item][0]=='Reliance Footprint'){
+        li.innerHTML = "<img src='Reliance.png' ><br><br>"+temp[item][1]+"<hr>";
+		}else if(temp[item][0]=='Central'){
+        li.innerHTML = "<img src='Central.png' ><br><br>"+temp[item][1]+"<hr>";
+		}else if(temp[item][0]=='Pantaloons'){
+        li.innerHTML = "<img src='Pantaloons.png' ><br><br>"+temp[item][1]+"<hr>";
+		}else if(temp[item][0]=='Lifestyle'){
+        li.innerHTML = "<img src='skietchers1.png' ><br><br>"+temp[item][1]+"<hr>";
+		}
+		
+        list.insertBefore(li, list.firstChild);
+	
+	}
+
+
+
+	}
+</script>
+</head>
+<body style="background:url(http://cdn1.skechers-usa.com/c/gradient_11c8ec_v3.png) repeat-x;">
+<p> <br>
+<div class="ui-widget" style="width:100%;left:0px;position:fixed;z-index:20;">
+  <p style="margin-top: 0px;"> <img src="skietchers.png" style="margin-top: -10px; margin-bottom: -20px;">
+    <label for="tags">&nbsp;&nbsp; <br>
+      &nbsp;&nbsp;
+    <font color="#FFFFFF" style="text-shadow: 1px 2px #333333;">  City:</font></label>
+    <input id="tags" onChange="city()" style="z-index:100"/>
+    &nbsp;&nbsp;&nbsp;<font style="text-shadow: 1px 2px #333333;" color="#FFFFFF">  Select store :</font>
+    <select name="store"  id="store" onChange="checkCity()">
+      <option value="ALL" >All </option>
+      <option value="Planet Sports" >Planet Sports </option>
+      <option value="Pantaloons" >Pantaloons</option>
+      <option value="Central">Central</option>
+      <option value="Reliance Footprint">Reliance Footprint</option>
+      <option value="Metro">Metro </option>
+      <option value="Lifestyle">Lifestyle </option>
+    </select>
+    
+  </p>
+</div>
+<ol id="selectable" style="margin-bottom:50px; top:150px;margin-right:10px;padding-top: -10px; width: 400px; left: 417px; position: absolute; background-color: #CCC;  -webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;-webkit-box-shadow: #2C0AEB 0px 0px 10px;-moz-box-shadow: #2C0AEB 0px 0px 10px;box-shadow: #2C0AEB 0px 0px 10px;z-index:0;width:auto;">
+</ol>
+<div id="s1" style="margin-right:10px;top:150px;;width:400px; position:fixed ;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;-webkit-box-shadow: #333333 0px 0px 10px;-moz-box-shadow: #333333 0px 0px 10px;box-shadow: #333333 0px 0px 10px;z-index:1;width:auto;" class="pics"> 
+<img alt="Bangluru" src="http://maps.google.com/maps/api/staticmap?markers=color:red|12.971599,77.594563&zoom=12&size=400x500&sensor=true"> 
+<img alt="Mangalore" src="http://maps.google.com/maps/api/staticmap?markers=color:red|12.914142,74.855957&zoom=12&size=400x500&sensor=true"> 
+<img alt="Bareilly" src="http://maps.google.com/maps/api/staticmap?markers=color:red|28.367036,79.430438&zoom=12&size=400x500&sensor=true"> 
+<img alt="Ghaziabad + Dadri" src="http://maps.google.com/maps/api/staticmap?markers=color:red|28.661968,77.426482&zoom=12&size=400x500&sensor=true"> 
+<img alt="Kanpur" src="http://maps.google.com/maps/api/staticmap?markers=color:red|26.449923,80.331874&zoom=12&size=400x500&sensor=true">
+<img alt="Lucknow" src="http://maps.google.com/maps/api/staticmap?markers=color:red|26.84651,80.94668&zoom=12&size=400x500&sensor=true">
+<img alt="Allahabad" src="http://maps.google.com/maps/api/staticmap?markers=color:red|25.43580,81.84631&zoom=12&size=400x500&sensor=true">
+<img alt="Haldwani-I" src="http://maps.google.com/maps/api/staticmap?markers=color:red|29.21670,79.51670&zoom=12&size=400x500&sensor=true">
+<img alt="Shillong" src="http://maps.google.com/maps/api/staticmap?markers=color:red|25.57877,91.89325&zoom=12&size=400x500&sensor=true">
+<img alt="New Delhi" src="http://maps.google.com/maps/api/staticmap?markers=color:red|28.63531,77.22496&zoom=12&size=400x500&sensor=true">
+<img alt="Bhubneshwar" src="http://maps.google.com/maps/api/staticmap?markers=color:red|20.29606,85.82454&zoom=12&size=400x500&sensor=true">
+<img alt="Jalandhar" src="http://maps.google.com/maps/api/staticmap?markers=color:red|31.32602,75.57618&zoom=12&size=400x500&sensor=true"> 
+<img alt="Ludhiana" src="http://maps.google.com/maps/api/staticmap?markers=color:red|30.90096,75.85728&zoom=12&size=400x500&sensor=true">
+<img alt="Amritsar" src="http://maps.google.com/maps/api/staticmap?markers=color:red|31.63398,74.87226&zoom=12&size=400x500&sensor=true"> 
+<img alt="Indore" src="http://maps.google.com/maps/api/staticmap?markers=color:red|22.71957,75.85773&zoom=12&size=400x500&sensor=true"> 
+<img alt="Bhopal" src="http://maps.google.com/maps/api/staticmap?markers=color:red|23.25993,77.41262&zoom=12&size=400x500&sensor=true"> 
+<img alt="Chennai" src="http://maps.google.com/maps/api/staticmap?markers=color:red|13.06042,80.24958&zoom=12&size=400x500&sensor=true"> 
+<img alt="Coimbatore" src="http://maps.google.com/maps/api/staticmap?markers=color:red|11.01684,76.95583&zoom=12&size=400x500&sensor=true"> 
+<img alt="Cochin" src="http://maps.google.com/maps/api/staticmap?markers=color:red|9.93123,76.26730&zoom=12&size=400x500&sensor=true"> 
+<img alt="Thane" src="http://maps.google.com/maps/api/staticmap?markers=color:red|19.21833,72.97809&zoom=12&size=400x500&sensor=true"> <img alt="Noida" src="http://maps.google.com/maps/api/staticmap?markers=color:red|28.53552,77.39103&zoom=12&size=400x500&sensor=true"> <img alt="Jaipur" src="http://maps.google.com/maps/api/staticmap?markers=color:red|26.91242,75.78729&zoom=12&size=400x500&sensor=true"> <img alt="Trivndrum" src="http://maps.google.com/maps/api/staticmap?markers=color:red|8.48749,76.94862&zoom=12&size=400x500&sensor=true"> <img alt="Hyderabad" src="http://maps.google.com/maps/api/staticmap?markers=color:red|17.38504,78.48667&zoom=12&size=400x500&sensor=true"> <img alt="Nagpur" src="http://maps.google.com/maps/api/staticmap?markers=color:red|21.14580,79.08815&zoom=12&size=400x500&sensor=true"> <img alt="Nasik" src="http://maps.google.com/maps/api/staticmap?markers=color:red|19.99745,73.78980&zoom=12&size=400x500&sensor=true"> <img alt="Aligarh" src="http://maps.google.com/maps/api/staticmap?markers=color:red|27.89381,78.06814&zoom=12&size=400x500&sensor=true"> <img alt="Kolkata" src="http://maps.google.com/maps/api/staticmap?markers=color:red|22.57265,88.36389&zoom=12&size=400x500&sensor=true"> <img alt="Siliguri" src="http://maps.google.com/maps/api/staticmap?markers=color:red|26.70838,88.42687&zoom=12&size=400x500&sensor=true"> <img alt="Guwahati" src="http://maps.google.com/maps/api/staticmap?markers=color:red|26.14713,91.73555&zoom=12&size=400x500&sensor=true"> <img alt="Raipur" src="http://maps.google.com/maps/api/staticmap?markers=color:red|21.25138,81.62964&zoom=12&size=400x500&sensor=true"> <img alt="Kota" src="http://maps.google.com/maps/api/staticmap?markers=color:red|25.16951,75.85399&zoom=12&size=400x500&sensor=true"> <img alt="Panaji" src="http://maps.google.com/maps/api/staticmap?markers=color:red|15.49560,73.82521&zoom=12&size=400x500&sensor=true"> <img alt="Surat" src="http://maps.google.com/maps/api/staticmap?markers=color:red|21.19500,72.81944&zoom=12&size=400x500&sensor=true"> <img alt="Vadodara" src="http://maps.google.com/maps/api/staticmap?markers=color:red|22.30731,73.18110&zoom=12&size=400x500&sensor=true"> <img alt="Mumbai" src="http://maps.google.com/maps/api/staticmap?markers=color:red|19.07598,72.87766&zoom=12&size=400x500&sensor=true"> <img alt="Navi Mumbai" src="http://maps.google.com/maps/api/staticmap?markers=color:red|19.03305,73.02966&zoom=12&size=400x500&sensor=true"> <img alt="Ahemdabad" src="http://maps.google.com/maps/api/staticmap?markers=color:red|23.03957,72.56600&zoom=12&size=400x500&sensor=true"> <img alt="Gurgaon" src="http://maps.google.com/maps/api/staticmap?markers=color:red|28.45950,77.02664&zoom=12&size=400x500&sensor=true"> <img alt="Visakhapatnam" src="http://maps.google.com/maps/api/staticmap?markers=color:red|17.68682,83.21848&zoom=12&size=400x500&sensor=true"> <img alt="Jabalpur" src="http://maps.google.com/maps/api/staticmap?markers=color:red|23.16670,79.95000&zoom=12&size=400x500&sensor=true"> <img alt="Pune" src="http://maps.google.com/maps/api/staticmap?markers=color:red|18.52043,73.85674&zoom=12&size=400x500&sensor=true"> <img alt="Ranchi" src="http://maps.google.com/maps/api/staticmap?markers=color:red|23.34410,85.30956&zoom=12&size=400x500&sensor=true"> <img alt="Aurangabad" src="http://maps.google.com/maps/api/staticmap?markers=color:red|19.87617,75.34331&zoom=12&size=400x500&sensor=true"> <img alt="Rajkot" src="http://maps.google.com/maps/api/staticmap?markers=color:red|22.30389,70.80216&zoom=12&size=400x500&sensor=true"> </div>
+<script type="text/javascript">
+//_uacct = "UA-850242-2";
+//urchinTracker();
+</script>
+</body>
+</html>
